@@ -5,6 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ username }}'s Website</title>
         <link rel="stylesheet" href="../static/css/styles.css">
+        <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+        <script>
+            const socket = io();
+    
+            socket.on("status_update", (data) => {
+                const statusIcon = document.querySelector(".status-indicator");
+                if (statusIcon) {
+                    statusIcon.src = `/static/img/status/${data.status}.png`;
+                }
+            });
+        </script>
     </head>
     <body>
         <div class="root">
