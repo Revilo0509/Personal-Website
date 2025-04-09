@@ -69,8 +69,3 @@ def webhook():
     
     except subprocess.CalledProcessError as e:
         return {"status": "error", "message": f"Error executing script: {e}"}
-
-@app.route("/update-status")
-def update_status():
-    user_info = fetch_user_info()
-    status = user_info.get("status", "offline")
