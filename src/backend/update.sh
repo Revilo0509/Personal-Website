@@ -1,4 +1,6 @@
 #!/bin/bash
-cd {path_to_your_project}
+cd /home/PersonalWebsite/Personal-Website
 git pull origin main
-systemctl restart {systemctl service name/file} &
+systemctl restart personalwebsite.service &
+sleep 5
+systemctl restart discordbot.service &
