@@ -1,21 +1,20 @@
-import discord
-from discord.ext import commands
-from flask import Flask, request, jsonify, redirect
 import os
-from dotenv import load_dotenv
 import threading
 import requests
+from flask import Flask, request, jsonify, redirect
+from dotenv import load_dotenv
+import discord
+from discord.ext import commands
 
-# Explicitly load the .env file from its location
+# Load environment variables
 load_dotenv(dotenv_path=os.path.abspath("") + "/.env")
 
 # Discord bot setup
 intents = discord.Intents.default()
-intents.presences = True  # Enable presence updates
-intents.members = True    # Enable member updates
+intents.presences = True
+intents.members = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
-
 user_data = {}
 
 @bot.event
@@ -24,10 +23,9 @@ async def on_ready():
 
 @bot.event
 async def on_presence_update(before, after):
-    # Automatically update user data when their presence changes
     user_data[after.name] = {
-        'username': after.name,
-        'status': str(after.status)  # Store the updated status
+        "username": after.name,
+        "status": str(after.status)
     }
     print(f"Updated presence for {after.name}: {after.status}")
 
@@ -54,7 +52,6 @@ def oauth_callback():
     if not code:
         return "No authorization code received.", 400
 
-    # Exchange code for access token
     data = {
         "client_id": CLIENT_ID,
         "client_secret": CLIENT_SECRET,
@@ -69,28 +66,24 @@ def oauth_callback():
         return f"Failed to get access token: {response.text}", 400
 
     access_token = response.json().get("access_token")
-
-    # Fetch user info
     headers = {"Authorization": f"Bearer {access_token}"}
     user_response = requests.get(DISCORD_API_URL, headers=headers)
 
     if user_response.status_code != 200:
         return f"Failed to fetch user info: {user_response.text}", 400
 
-    user_info = user_response.json()
-    return jsonify(user_info)
+    return jsonify(user_response.json())
 
 @app.route('/user-info', methods=['GET'])
 def get_user_info():
+    user_id = os.getenv("USER_ID")
     for guild in bot.guilds:
-        member = guild.get_member(int(os.getenv("USER_ID")))
-        
+        member = guild.get_member(int(user_id))
         if member:
-            # Return the user's username and status
             return jsonify({
                 "username": member.name,
-                "display_name": member.display_name,  # The user's display name (nickname or username)
-                "status": str(member.status)  # Status can be online, offline, idle, etc.
+                "display_name": member.display_name,
+                "status": str(member.status)
             })
     return jsonify({"error": "User not found in any guilds the bot is in."}), 404
 
@@ -101,6 +94,5 @@ def run_discord_bot():
     bot.run(os.getenv("TOKEN"))
 
 if __name__ == "__main__":
-    # Run Flask and Discord bot in separate threads
     threading.Thread(target=run_flask).start()
     run_discord_bot()
