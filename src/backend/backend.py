@@ -7,7 +7,7 @@ import os
 from dotenv import load_dotenv
 import requests
 
-load_dotenv(os.path.abspath("") + "/.env")
+load_dotenv(dotenv_path=os.path.abspath("") + "/.env")
 
 app = flask.Flask(__name__, static_folder=os.path.abspath("") + "/src/static", template_folder=os.path.abspath("") + "/src/pages")
 production = True if os.getenv("ENV") == "production" else False
