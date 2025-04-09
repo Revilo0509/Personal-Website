@@ -6,6 +6,7 @@ import subprocess
 import os
 from dotenv import load_dotenv
 import requests
+from flask_socketio import SocketIO
 
 load_dotenv(dotenv_path=os.path.abspath("") + "/.env")
 
