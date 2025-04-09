@@ -68,4 +68,3 @@ def webhook():
     
     except subprocess.CalledProcessError as e:
         return {"status": "error", "message": f"Error executing script: {e}"}
-
