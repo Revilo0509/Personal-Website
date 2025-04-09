@@ -1,21 +1,37 @@
 import hmac
 import hashlib
 import flask
-from flask import send_file, abort, request
+from flask import send_file, abort, request, render_template
 import subprocess
 import os
 from dotenv import load_dotenv
+import requests
 
 load_dotenv(os.path.abspath("") + "/.env")
 
-app = flask.Flask(__name__, static_folder=os.path.abspath("") + "/src/static", template_folder=os.path.abspath("") + "/src/template")
+app = flask.Flask(__name__, static_folder=os.path.abspath("") + "/src/static", template_folder=os.path.abspath("") + "/src/pages")
 production = True if os.getenv("ENV") == "production" else False
 script_path = os.path.abspath("") + "/src/backend/update.sh"
 WEBHOOK_KEY = os.getenv("WEBHOOK_KEY")
 
+def fetch_user_info():
+    try:
+        response = requests.get("http://localhost:5001/user-info")
+        if response.status_code == 200:
+            return response.json()
+        else:
+            print(f"Error: {response.json().get('error', 'Unknown error')}")
+            return {"username": "Unknown User"}  # Default value
+    except Exception as e:
+        print(f"Exception occurred while fetching user info: {e}")
+        return {"username": "Unknown User"}  # Default value
+
 @app.route("/")
 def start():
-    return send_file(os.path.abspath("") + "/src/pages/index.html")
+    user_info = fetch_user_info()
+    username = user_info.get("display_name", "Revilo")
+    status = user_info.get("status", "offline")  # Default to offline if status is not available
+    return render_template("index.html", username=username, user_info={"status": status})
 
 def verify_signature(payload, signature):
     """
@@ -53,10 +69,3 @@ def webhook():
     except subprocess.CalledProcessError as e:
         return {"status": "error", "message": f"Error executing script: {e}"}
 
-@app.route("/pages/<path:filename>")
-def serve_template(filename):
-    template_path = os.path.abspath("") + "/src/pages/" + filename
-    if os.path.exists(template_path):
-        return send_file(template_path)
-    else:
-        abort(404, description="File not found")
