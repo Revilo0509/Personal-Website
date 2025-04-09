@@ -6,6 +6,7 @@ import subprocess
 import os
 from dotenv import load_dotenv
 import requests
+from flask_socketio import SocketIO
 
 load_dotenv(dotenv_path=os.path.abspath("") + "/.env")
 
@@ -73,4 +74,3 @@ def webhook():
 def update_status():
     user_info = fetch_user_info()
     status = user_info.get("status", "offline")
-    return {"status": "success"}
