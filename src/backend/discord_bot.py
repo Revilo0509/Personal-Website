@@ -83,7 +83,7 @@ def oauth_callback():
 @app.route('/user-info', methods=['GET'])
 def get_user_info():
     for guild in bot.guilds:
-        member = guild.get_member(int(os.getenv("USER_ID")))
+        member = guild.get_member(int(os.getenv("CLIENT_ID")))
         
         if member:
             # Return the user's username and status
