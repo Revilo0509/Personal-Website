@@ -1,12 +1,11 @@
 import hmac
 import hashlib
 import flask
-from flask import send_file, abort, request, render_template
+from flask import abort, request, render_template
 import subprocess
 import os
 from dotenv import load_dotenv
 import requests
-from flask_socketio import SocketIO
 
 load_dotenv(dotenv_path=os.path.abspath("") + "/.env")
 
@@ -70,12 +69,8 @@ def webhook():
     except subprocess.CalledProcessError as e:
         return {"status": "error", "message": f"Error executing script: {e}"}
 
-
-
-socketio = SocketIO(app)
 @app.route("/update-status")
 def update_status():
     user_info = fetch_user_info()
     status = user_info.get("status", "offline")
-    socketio.emit("status_update", {"status": status})
     return {"status": "success"}
