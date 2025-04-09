@@ -7,14 +7,17 @@
         <link rel="stylesheet" href="../static/css/styles.css">
         <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
         <script>
-            const socket = io();
-    
-            socket.on("status_update", (data) => {
-                const statusIcon = document.querySelector(".status-indicator");
-                if (statusIcon) {
-                    statusIcon.src = `/static/img/status/${data.status}.png`;
-                }
-            });
+            setInterval(() => {
+                fetch("https://revilo0509.net/status-update")
+                    .then(response => response.json())
+                    .then(data => {
+                        const statusIcon = document.querySelector(".status-indicator");
+                        if (statusIcon) {
+                            statusIcon.src = `/static/img/status/${data.status}.png`;
+                        }
+                    })
+                    .catch(error => console.error("Error fetching status update:", error));
+            }, 5000);
         </script>
     </head>
     <body>
