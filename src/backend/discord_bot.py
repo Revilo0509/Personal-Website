@@ -7,7 +7,7 @@ import threading
 import requests
 
 # Explicitly load the .env file from its location
-load_dotenv(dotenv_path="D:/Programming/.Personal-Projects/WebDev/Personal-Website/.env")
+load_dotenv(dotenv_path=os.path.abspath("") + "/.env")
 
 # Discord bot setup
 intents = discord.Intents.default()
