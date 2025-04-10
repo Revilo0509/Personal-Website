@@ -233,4 +233,7 @@ html, body {
         margin: 8px;
         margin-top: 16px;
     }
+    .scrolldown {
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    }
 }
