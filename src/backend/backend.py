@@ -25,7 +25,7 @@ app = Flask(
 
 # Environment and constants
 production = os.getenv("ENV") == "production"
-script_path = os.path.join(os.path.abspath(""), "src/backend/update.sh")
+script_path = os.path.join(os.path.abspath(""), "src/backend/scripts/update.sh")
 WEBHOOK_KEY = os.getenv("WEBHOOK_KEY")
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
