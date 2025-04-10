@@ -3,12 +3,13 @@ import hashlib
 import os
 import subprocess
 import requests
-from flask import Flask, abort, request, render_template, jsonify, redirect
+from flask import Flask, abort, request, render_template, jsonify
 from dotenv import load_dotenv
-import time
-import threading
 import discord
 from discord.ext import commands
+import asyncio
+from hypercorn.asyncio import serve
+from hypercorn.config import Config
 
 version = "0.1.0"
 
@@ -28,7 +29,7 @@ script_path = os.path.join(os.path.abspath(""), "src/backend/update.sh")
 WEBHOOK_KEY = os.getenv("WEBHOOK_KEY")
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-REDIRECT_URI = "http://localhost:5001/callback"
+REDIRECT_URI = "http://localhost:5000/callback"
 DISCORD_TOKEN_URL = "https://discord.com/api/oauth2/token"
 DISCORD_API_URL = "https://discord.com/api/users/@me"
 DISCORD_TOKEN = os.getenv("TOKEN")
@@ -151,10 +152,23 @@ def discord_callback():
     except requests.exceptions.RequestException as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-def run_discord_bot():
-    bot.run(DISCORD_TOKEN)
+async def run_flask_app():
+    """
+    Run the Flask app using Hypercorn.
+    """
+    config = Config()
+    config.bind = ["0.0.0.0:5000"]
+    await serve(app, config)
+
+async def main():
+    """
+    Run both the Discord bot and Flask app in the same asyncio event loop.
+    """
+    # Run the Discord bot and Flask app concurrently
+    await asyncio.gather(
+        bot.start(DISCORD_TOKEN),  # Start the Discord bot
+        run_flask_app(),          # Start the Flask app
+    )
 
 if __name__ == "__main__":
-    # Start the Discord bot and Flask app in separate threads
-    threading.Thread(target=run_discord_bot, daemon=True).start()
-    app.run(port=5000, debug=True, use_reloader=False)
+    asyncio.run(main())
