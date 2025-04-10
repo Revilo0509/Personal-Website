@@ -30,11 +30,11 @@ html, body {
     height: 32px;
     width: 32px;
     margin: 16px;
+    transition: transform 0.3s;
 }
 
 .link-icon:hover {
     transform: scale(1.2);
-    transition: transform 0.3s;
 }
 
 .profile-container {
