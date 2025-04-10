@@ -157,7 +157,10 @@ async def run_flask_app():
     Run the Flask app using Hypercorn.
     """
     config = Config()
-    config.bind = ["127.0.0.1:5000"]
+    if production:
+        config.bind = ["127.0.0.1:5000"]
+    else:
+        config.bind = ["localhost:5000"]
     await serve(app, config)
 
 async def main():
