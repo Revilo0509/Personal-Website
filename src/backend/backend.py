@@ -14,7 +14,10 @@ from hypercorn.config import Config
 version = "0.1.0"
 
 # Load environment variables
-load_dotenv(dotenv_path=os.path.join(os.path.abspath(""), ".env"))
+dotenv_path = os.path.join(os.path.abspath(""), ".env")
+if not os.path.exists(dotenv_path):
+    dotenv_path = "/home/PersonalWebsite/Personal-Website/.env"
+load_dotenv(dotenv_path=dotenv_path)
 
 # Flask app configuration
 app = Flask(
