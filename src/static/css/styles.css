@@ -12,7 +12,7 @@ html, body {
 
 .root {
     display: flex;
-    flex-direction: row;
+    flex-direction:  column-reverse;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -21,16 +21,20 @@ html, body {
 
 .link-list {
     display: flex;
-    flex-direction: column;
-    margin-right: 16px;
+    flex-direction: row;
+    margin-top: 16px;
 }
 
 .link-icon {
     fill: #fff;
     height: 32px;
     width: 32px;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin: 16px;
+}
+
+.link-icon:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s;
 }
 
 .profile-container {
@@ -70,6 +74,18 @@ html, body {
     color: #fff;
     font-size: 18px;
     max-width: 40vw;
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .bio p {
+        max-width: 60vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .bio p {
+        max-width: 75vw;
+    }
 }
 
 .status-indicator-container {
