@@ -2,6 +2,13 @@
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
 }
 
 html, body {
@@ -10,31 +17,25 @@ html, body {
     width: 100vw;
 }
 
-.root {
+/* **************************
+***** profile container *****
+****************************/
+
+.first-container {
     display: flex;
-    flex-direction:  column-reverse;
+    flex-direction:  column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100vw;
+    position: relative;
 }
 
-.link-list {
+.main-profile-container {
     display: flex;
-    flex-direction: row;
-    margin-top: 16px;
-}
-
-.link-icon {
-    fill: #fff;
-    height: 32px;
-    width: 32px;
-    margin: 16px;
-    transition: transform 0.3s;
-}
-
-.link-icon:hover {
-    transform: scale(1.2);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile-container {
@@ -102,4 +103,129 @@ html, body {
     border: 6px solid #111926;
     border-radius: 50%;
     background-color: #111926;
+}
+
+/* **************
+***** links *****
+****************/
+
+.link-list {
+    display: flex;
+    flex-direction: row;
+    margin-top: 16px;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.link-icon {
+    fill: #fff;
+    height: 32px;
+    width: 32px;
+    margin: 16px;
+    transition: transform 0.3s;
+    overflow-x: visible;
+}
+
+.link-icon:hover {
+    transform: scale(1.2);
+}
+
+/****************************
+***** scrolldown arrow ******
+*****************************/
+
+.scrolldown {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.scrolldown svg {
+    fill: #fff;
+    height: 32px;
+    width: 32px;
+    margin: 16px;
+    transition: transform 0.3s;
+    overflow-x: visible;
+    transform: rotate(90deg);
+}
+
+.scrolldown svg:hover {
+    transform: rotate(90deg) scale(1.2);
+}
+
+/*******************
+***** projects *****
+*******************/
+.projects-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+}
+
+.project {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 16px;
+    width: 300px;
+    height: 400px;
+    background-color: #161f34;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.project-icon {
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.project-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #1c2232;
+}
+
+.project-description h3 {
+    color: #fff;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.project-description p {
+    color: #fff;
+    font-size: 16px;
+    margin-top: 8px;
+    margin-left: 24px;
+    margin-right: 24px;
+    text-align: center;
+}
+
+.project-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.project-buttons a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #2d395b;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.project-buttons a:hover {
+    background-color: #3e4a7d;
+    transform: scale(1.05);
 }
