@@ -6,6 +6,8 @@ import requests
 from flask import Flask, abort, request, render_template
 from dotenv import load_dotenv
 
+version = "0.1.0"
+
 # Load environment variables
 load_dotenv(dotenv_path=os.path.join(os.path.abspath(""), ".env"))
 
@@ -44,7 +46,7 @@ def start():
     user_info = fetch_user_info()
     username = user_info.get("display_name", "Revilo")
     status = user_info.get("status", "offline")  # Default to offline if not available
-    return render_template("index.html", username=username, user_info={"status": status})
+    return render_template("index.html", username=username, user_info={"status": status}, version=version)
 
 
 def verify_signature(payload, signature):
