@@ -3,6 +3,7 @@ import hashlib
 import os
 import subprocess
 import requests
+import signal
 from flask import Flask, abort, request, render_template, jsonify
 from dotenv import load_dotenv
 import discord
@@ -170,10 +171,23 @@ async def main():
     """
     Run both the Discord bot and Flask app in the same asyncio event loop.
     """
+    loop = asyncio.get_running_loop()
+
+    # Handle termination signals
+    stop_event = asyncio.Event()
+
+    def handle_stop_signal():
+        print("Received stop signal, shutting down...")
+        stop_event.set()
+
+    loop.add_signal_handler(signal.SIGTERM, handle_stop_signal)
+    loop.add_signal_handler(signal.SIGINT, handle_stop_signal)
+
     # Run the Discord bot and Flask app concurrently
     await asyncio.gather(
         bot.start(DISCORD_TOKEN),  # Start the Discord bot
         run_flask_app(),          # Start the Flask app
+        stop_event.wait(),        # Wait for the stop signal
     )
 
 if __name__ == "__main__":
