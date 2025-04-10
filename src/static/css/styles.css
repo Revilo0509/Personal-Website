@@ -78,18 +78,6 @@ html, body {
     max-width: 40vw;
 }
 
-@media (max-width: 1024px) and (min-width: 769px) {
-    .bio p {
-        max-width: 60vw;
-    }
-}
-
-@media (max-width: 768px) {
-    .bio p {
-        max-width: 75vw;
-    }
-}
-
 .status-indicator-container {
     position: relative;
     display: inline-block;
@@ -229,4 +217,23 @@ html, body {
 .project-buttons a:hover {
     background-color: #3e4a7d;
     transform: scale(1.05);
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .bio p {
+        max-width: 60vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .bio p {
+        max-width: 75vw;
+    }
+    .link-icon {
+        margin: 8px;
+        margin-top: 16px;
+    }
+    .scrolldown {
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    }
 }
