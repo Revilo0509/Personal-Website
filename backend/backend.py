@@ -7,6 +7,7 @@ import os
 from dotenv import load_dotenv
 import requests
 import time
+from ipaddress import ip_network, ip_address
 
 load_dotenv(os.path.abspath("") + "/.env")
 
