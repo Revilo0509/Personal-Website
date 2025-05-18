@@ -113,7 +113,7 @@ def start():
     user_info = fetch_user_info()
     username = user_info.get("display_name", "Revilo")
     status = user_info.get("status", "offline")  # Default to offline if not available
-    return render_template("index.html", username=username, user_info={"status": status}, version=version)
+    return render_template("index.html", username=username, user_info={"status": status})
 
 ##########################################
 ############### RUN APP ##################
