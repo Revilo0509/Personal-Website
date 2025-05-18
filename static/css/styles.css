@@ -11,8 +11,18 @@
     display: none;
 }
 
+html {
+    --background: #111926;
+    --element-background: #19212F;
+    --element-poi: #2a2d32;
+    --highligt: #ffffff;
+
+    --text: #ffffff;
+}
+
+
 html, body {
-    background: #111926;
+    background: var(--background);
     height: 100vh;
     width: 100vw;
     scroll-behavior: smooth;
@@ -63,7 +73,7 @@ html, body {
 }
 
 .profile h1 {
-    color: #fff;
+    color: var(--text);
     font-size: 32px;
     margin-left: 16px;
 }
@@ -73,7 +83,7 @@ html, body {
 }
 
 .bio p {
-    color: #fff;
+    color: var(--text);
     font-size: 18px;
     max-width: 40vw;
 }
@@ -89,9 +99,9 @@ html, body {
     right: 0;
     width: 20px;
     height: 20px;
-    border: 6px solid #111926;
+    border: 6px solid var(--background);
     border-radius: 50%;
-    background-color: #111926;
+    background-color: var(--background);
 }
 
 /* **************
@@ -107,7 +117,7 @@ html, body {
 }
 
 .link-icon {
-    fill: #fff;
+    fill: var(--highligt);
     height: 32px;
     width: 32px;
     margin: 16px;
@@ -131,7 +141,7 @@ html, body {
 }
 
 .scrolldown svg {
-    fill: #fff;
+    fill: var(--highligt);
     height: 32px;
     width: 32px;
     margin: 16px;
@@ -164,7 +174,7 @@ html, body {
     margin: 16px;
     width: 300px;
     height: 400px;
-    background-color: #161f34;
+    background-color: var(--element-background);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -185,13 +195,13 @@ html, body {
 }
 
 .project-description h3 {
-    color: #fff;
+    color: var(--text);
     margin-top: 8px;
     text-align: center;
 }
 
 .project-description p {
-    color: #fff;
+    color: var(--text);
     font-size: 16px;
     margin-top: 8px;
     margin-left: 24px;
@@ -207,7 +217,7 @@ html, body {
 .project-buttons a {
     text-decoration: none;
     color: #fff;
-    background-color: #2d395b;
+    background-color: var(--element-poi);
     padding: 8px 16px;
     border-radius: 4px;
     margin: 8px;
@@ -215,7 +225,7 @@ html, body {
 }
 
 .project-buttons a:hover {
-    background-color: #3e4a7d;
+    filter: brightness(1.2);
     transform: scale(1.05);
 }
 

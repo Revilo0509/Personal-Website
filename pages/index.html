@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ username }}'s Website</title>
-        <link rel="stylesheet" href="../static/css/styles.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     </head>
     <body>
         <div class="first-container" id="home">
@@ -92,7 +92,7 @@
 
             <div class="project">
                 <div class="project-icon">
-                    <img src="../static/img/project_img/website.png">
+                    <img src="{{ url_for('static', filename='img/project_img/website.png') }}">
                 </div>
                 <div class="project-description">
                     <h3>Personal Website</h3>
@@ -105,7 +105,7 @@
             </div>
             <div class="project">
                 <div class="project-icon">
-                    <img src="../static/img/project_img/teamcivitas_icon.webp">
+                    <img src="{{ url_for('static', filename='img/project_img/teamcivitas_icon.webp') }}">
                 </div>
                 <div class="project-description">
                     <h3>Team Civitas Website</h3>
