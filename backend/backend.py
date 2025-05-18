@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 import requests
 import time
 from ipaddress import ip_network, ip_address
+from datetime import datetime
 
 load_dotenv(os.path.abspath("") + "/.env")
 
@@ -90,6 +91,19 @@ def webhook():
         return {"status": "error", "message": f"Error executing script: {e}"}
 
 ##########################################
+############## Stuff ###################
+##########################################
+
+def years_since(start_date: datetime) -> float:
+    now = datetime.now(tz=start_date.tzinfo)  # Preserve timezone if any
+    delta = now - start_date
+
+    # Use average Gregorian year length
+    years = delta.days / 365.2425 + (delta.seconds + delta.microseconds / 1e6) / (365.2425 * 86400)
+
+    return round(years, 8)
+
+##########################################
 ############## Website ###################
 ##########################################
 
@@ -112,10 +126,16 @@ def start():
     """
     Render the homepage with user information.
     """
-    user_info = fetch_user_info()
+    user_info = {}
+    if production:
+        user_info = fetch_user_info()
+    
+    
     username = user_info.get("display_name", "Revilo")
     status = user_info.get("status", "offline")  # Default to offline if not available
-    return render_template("index.html", username=username, user_info={"status": status})
+    birthday = datetime(2010,11,2)
+    age = f"{years_since(birthday)}".split(".")[0]
+    return render_template("index.html", username=username, user_info={"status": status}, age=age)
 
 ##########################################
 ############### RUN APP ##################
