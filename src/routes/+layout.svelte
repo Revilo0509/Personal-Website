@@ -1,5 +1,7 @@
 <script>
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from "$lib/assets/favicon.svg";
+	import "$lib/global.css";
+	import Background from "$lib/Background.svelte";
 
 	let { children } = $props();
 </script>
@@ -8,4 +10,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{@render children?.()}
+<Background />
+<main>
+	{@render children?.()}
+</main>

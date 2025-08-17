@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --corner-radius: 2rem;
+
+    --bg-col: #191a1d;
+    --hl-col: #22252a;
+
+    --primary-col: #752a31;
+    --secondary-col: #3e1b20;
+
+    --text-col: #f1f1f1;
+    --text-highligt-col: #752a31;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    color: var(--text-col);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    font-family: Prompt;
+
+    width: 100vw;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+h3 {
+    font-size: 2.25rem;
+}
+
+h4 {
+    font-size: 1.75rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
