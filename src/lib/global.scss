@@ -3,6 +3,7 @@
 * {
   margin: 0;
   padding: 0;
+  line-height: 110%;
 }
 
 :root {
@@ -20,20 +21,41 @@
 
 html {
   overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
   scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 ::-webkit-scrollbar {
-  display: none;
+  height: 12px;
+  border-radius: 6px;
+  background-color: transparent;
+
+  &-thumb {
+    background: var(--hl-col);
+    border-radius: 8px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: 300ms ease;
+
+    &:hover {
+      background: var(--text-highligt-col);
+    }
+  }
+
+  &-corner {
+    background: transparent;
+  }
 }
 
 body {
   color: var(--text-col);
   scrollbar-width: none;
   -ms-overflow-style: none;
-
   font-family: Prompt;
-
   width: 100vw;
 }
 
@@ -61,7 +83,7 @@ h6 {
   font-size: 1rem;
 }
 
-.remove-hyper {
+.Remove-Hyper {
   text-decoration: none;
   color: inherit;
 }
@@ -73,12 +95,88 @@ h6 {
   padding: calc(var(--corner-radius) * 0.75);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px;
+
+  &-Animate {
+    transition: 200ms ease-in-out;
+
+    &:hover {
+      transform: translateY(-0.75rem) scale(1.03);
+    }
+  }
 }
 
-.Box-Animate {
-  transition: 200ms ease-in-out;
+.Reveal {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 1s ease, transform 1s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.Text-Animate {
+  transition: color 300ms ease;
+  color: inherit;
+
+  span,
+  a,
+  strong,
+  em,
+  b,
+  i,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    position: relative;
+    display: inline-block;
+    transition: color 300ms ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 4px;
+      border-radius: 2px;
+      width: 0;
+      background-color: var(--text-highligt-col);
+      transition: width 300ms ease;
+    }
+  }
 
   &:hover {
-    transform: translateY(-0.75rem) scale(1.03);
+    color: var(--text-highligt-col);
+
+    span,
+    a,
+    strong,
+    em,
+    b,
+    i,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: var(--text-highligt-col);
+
+      &::after {
+        width: 100%;
+      }
+    }
   }
+}
+
+.Horizontal-Scroll {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding: 1rem 0;
+  list-style: none;
 }

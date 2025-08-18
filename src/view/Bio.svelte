@@ -1,7 +1,12 @@
-<section id="bio">
-  <div class="Box">Hi, I'm Revilo!
-
-I code for fun and know multiple languages. I also love playing games. The languages I know are Python, C++, LUA, HTML, CSS and a bit of Javascript. But I also know English, Swedish, Polish and I'm learning Spanish. I mostly play modded minecraft with friends but I also play other games.</div>
+<section id="bio" class="Reveal">
+  <div class="wrapper">
+    <div class="Box">
+      <h4>Hi! I'm Revilo.</h4>
+      I'm a electionics, homelab and software developer hobbist, I mostly use python
+      and C++ but I also know LUA, Html, CSS and JS/TS. But I have dipped my toes
+      into C# and Java. I also love to play games specially Minecraft.
+    </div>
+  </div>
 </section>
 
 <style>
@@ -9,9 +14,17 @@ I code for fun and know multiple languages. I also love playing games. The langu
     display: flex;
   }
 
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+  }
+
   .Box {
     margin: 6rem;
-    margin-left: auto;
-    margin-right: auto;
+
+    max-width: 50%;
   }
 </style>
