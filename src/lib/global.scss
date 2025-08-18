@@ -16,7 +16,7 @@
   --secondary-col: #3e1b20;
 
   --text-col: #f1f1f1;
-  --text-highligt-col: #752a31;
+  --text-highligt-col: #91212c;
 }
 
 html {
@@ -59,6 +59,10 @@ body {
   width: 100vw;
 }
 
+section {
+  min-height: 100vh;
+}
+
 h1 {
   font-size: 4rem;
 }
@@ -90,19 +94,24 @@ h6 {
 
 .Box {
   display: inline-block;
-  background-color: var(--hl-col);
+  background-color: var(--bg-col);
   border-radius: var(--corner-radius);
   padding: calc(var(--corner-radius) * 0.75);
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px;
 
   &-Animate {
-    transition: 200ms ease-in-out;
+    transition: transform 0.3s cubic-bezier(.4, 2, .6, 1);
 
     &:hover {
       transform: translateY(-0.75rem) scale(1.03);
     }
   }
+}
+
+
+a:hover .Box-Animate {
+  transform: translateY(-0.75rem) scale(1.03);
 }
 
 .Reveal {
@@ -140,7 +149,7 @@ h6 {
       content: '';
       position: absolute;
       left: 0;
-      bottom: 0;
+      bottom: -4px;
       height: 4px;
       border-radius: 2px;
       width: 0;

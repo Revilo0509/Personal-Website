@@ -3,13 +3,14 @@ import { browser } from '$app/environment';
 const CACHE_KEY = 'revilo-github-repos';
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
+const denyList = ['archived', 'disabled'];
+
 export async function fetchRepos() {
   let cached = null;
 
   if (browser) {
     cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
 
-    // Return fresh cache if it's valid
     if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
       return cached.data;
     }
@@ -30,8 +31,11 @@ export async function fetchRepos() {
 
     return data;
   } catch (err) {
-    // If fetch fails, return cached data even if stale
     if (cached) return cached.data;
     throw err;
   }
+}
+
+export function filterRepos(repos) {
+  return repos.filter(repo => !denyList.some(key => repo[key] === true));
 }

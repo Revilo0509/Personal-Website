@@ -1,11 +1,11 @@
 <script>
   import Bio from "$view/Bio.svelte";
-  import Projects from "$view/Projects.svelte";
+  import Repositories from "$view/Repositories.svelte";
   import Top from "$view/Top.svelte";
 </script>
 
 <main>
   <Top />
   <Bio />
-  <Projects />
+  <Repositories />
 </main>

@@ -1,7 +1,17 @@
-export function initReveal({ threshold = 0.4, className = "visible" } = {}) {
+const denyList = ['archived', 'disabled']
+
+export function initReveal({ threshold = 0.6, className = "visible"} = {}) {
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
+                const shouldDeny = denyList.some(attr => {
+                    const val = entry.target.getAttribute(`data-${attr}`);
+                    return val === "true" || val === true;
+                });
+                if (shouldDeny) {
+                    entry.target.classList.remove(className);
+                    return;
+                }
                 if (entry.isIntersecting) {
                     entry.target.classList.add(className);
                 } else {
