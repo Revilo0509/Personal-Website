@@ -1,6 +1,6 @@
 <script>
 	import favicon from "$lib/assets/favicon.svg";
-	import "$lib/global.css";
+	import "$lib/global.scss";
 	import Background from "$lib/Background.svelte";
 
 	let { children } = $props();
