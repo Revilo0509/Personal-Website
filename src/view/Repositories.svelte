@@ -46,7 +46,7 @@
     {/if}
 </section>
 
-<style>
+<style lang="scss">
     h2 {
         text-align: center;
     }

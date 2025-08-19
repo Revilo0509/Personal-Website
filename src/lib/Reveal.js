@@ -1,24 +1,28 @@
-export function initReveal({ threshold = 0.5, className = "visible" } = {}) {
+export function initReveal({ threshold = 0.1, className = "visible", buffer = 100 } = {}) {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             const el = entry.target;
 
             if (entry.isIntersecting) {
-                // Show element
+                // Fade in
                 el.classList.remove("hiding");
                 el.classList.add(className);
-            } else if (el.classList.contains(className) && !el.classList.contains("hiding")) {
-                // Start hiding
-                el.classList.add("hiding");
 
-                // Remove classes after transition ends
-                const onTransitionEnd = (e) => {
-                    if (e.target === el) {
+                if (el._hideTimeout) {
+                    clearTimeout(el._hideTimeout);
+                    el._hideTimeout = null;
+                }
+            } else {
+                // Delay fade out to avoid instant disappearance
+                if (el.classList.contains(className) && !el.classList.contains("hiding")) {
+                    el.classList.add("hiding");
+
+                    const duration = parseFloat(getComputedStyle(el).transitionDuration) * 1000;
+                    el._hideTimeout = setTimeout(() => {
                         el.classList.remove(className, "hiding");
-                        el.removeEventListener("transitionend", onTransitionEnd);
-                    }
-                };
-                el.addEventListener("transitionend", onTransitionEnd);
+                        el._hideTimeout = null;
+                    }, duration + buffer);
+                }
             }
         });
     }, { threshold });
