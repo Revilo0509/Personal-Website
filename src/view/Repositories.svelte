@@ -49,6 +49,7 @@
 <style lang="scss">
     h2 {
         text-align: center;
+        padding-top: 2rem;
     }
 
     p {

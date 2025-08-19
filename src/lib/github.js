@@ -3,7 +3,7 @@ import { browser } from '$app/environment';
 const CACHE_KEY = 'revilo-github-repos';
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
-const denyList = ['archived', 'disabled'];
+const denyList = ['archived', 'disabled', 'fork'];
 
 export async function fetchRepos() {
   let cached = null;

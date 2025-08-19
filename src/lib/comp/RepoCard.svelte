@@ -1,29 +1,29 @@
 <script>
-    import fork from "$lib/icons/fork.svg";
-    import issue from "$lib/icons/issue.svg";
-    import star from "$lib/icons/star.svg";
-    import users from "$lib/icons/users.svg";
+    import fork  from "$lib/icons/repoIcons/fork.svg";
+    import star  from "$lib/icons/repoIcons/star.svg";
+
+    import Button from "./Button.svelte";
 
     const { repo } = $props();
 </script>
 
-<div class="Box Box-Animate Reveal">
-    <div class="container">
-        <h5>{repo.name}</h5>
-        <div class="stats">
-                        <span>
-                <img src={star} alt="Star Icon" />
-                <div>{repo.stargazers_count}</div>
-            </span>
-            <span>
-                <img src={fork} alt="Fork Icon" />
-                <div>{repo.forks_count}</div>
-            </span>
-        </div>
+<div class="Reveal">
+    <div class="Box Box-Animate">
+        <div class="container">
+            <h5>{repo.name}</h5>
+            <div class="stats">
+                <span>
+                    <img src={star} alt="Star Icon" />
+                    <div>{repo.stargazers_count}</div>
+                </span>
+                <span>
+                    <img src={fork} alt="Fork Icon" />
+                    <div>{repo.forks_count}</div>
+                </span>
+            </div>
 
-        <a href={repo.html_url} class="Remove-Hyper Text-Animate Button">
-            <span>Go to Repo</span>
-        </a>
+            <Button href={repo.homepage ? repo.homepage : repo.html_url} text={repo.homepage ? 'Go to Site' : 'Go to Repo'} newTab={true}/>
+        </div>
     </div>
 </div>
 
