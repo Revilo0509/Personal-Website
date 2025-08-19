@@ -36,6 +36,11 @@
         text-align: center;
     }
 
+    p {
+        text-align: center;
+        margin-top: 3rem;
+    }
+
     .horizontalScrollSpecial {
         margin: 1rem;
         display: grid;
