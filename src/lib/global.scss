@@ -123,6 +123,11 @@ a:hover .Box-Animate {
     opacity: 1;
     transform: translateY(0);
   }
+
+  &.hiding {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
 }
 
 .Text-Animate {
@@ -188,4 +193,25 @@ a:hover .Box-Animate {
   overflow-x: auto;
   padding: 1rem 0;
   list-style: none;
+}
+
+.Button {
+  padding: 0.5rem;
+  border-radius: var(--corner-radius);
+  background-color: var(--hl-col);
+  text-align: center;
+  transition: 300ms ease;
+  color: var(--text-col);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  font: inherit;
+  padding: 12px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  &:hover {
+    background-color: var(--secondary-col);
+  }
 }

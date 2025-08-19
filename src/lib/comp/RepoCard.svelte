@@ -7,7 +7,7 @@
     const { repo } = $props();
 </script>
 
-<div class="Box Box-Animate">
+<div class="Box Box-Animate Reveal">
     <div class="container">
         <h5>{repo.name}</h5>
         <div class="stats">
@@ -21,7 +21,7 @@
             </span>
         </div>
 
-        <a href={repo.html_url} class="Remove-Hyper Text-Animate repoLink">
+        <a href={repo.html_url} class="Remove-Hyper Text-Animate Button">
             <span>Go to Repo</span>
         </a>
     </div>
@@ -29,7 +29,7 @@
 
 <style lang="scss">
     .Box {
-        width: 16vw;
+        width: 250px;
     }
 
     h5 {
@@ -66,18 +66,6 @@
             width: 1.2rem;
             height: 1.2rem;
             opacity: 0.85;
-        }
-    }
-
-    .repoLink {
-        padding: 0.5rem;
-        border-radius: var(--corner-radius);
-        background-color: var(--hl-col);
-        text-align: center;
-
-        transition: 300ms ease;
-        &:hover {
-            background-color: var(--secondary-col);
         }
     }
 

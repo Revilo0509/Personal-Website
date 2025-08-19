@@ -6,6 +6,9 @@ export default defineConfig({
 	plugins: [sveltekit(), devtoolsJson()],
 	server: {
 		host: true,
-		allowedHosts: ['dev.revilo0509.net']
+		allowedHosts: ['dev.revilo0509.net'],
+		proxy: {
+			"/presence": "http://localhost:3000"
+		}
 	}
 });

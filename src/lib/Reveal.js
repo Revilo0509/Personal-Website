@@ -1,41 +1,39 @@
-export function initReveal({ threshold = 0.6, className = "visible" } = {}) {
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add(className);
-                } else {
-                    entry.target.classList.remove(className);
-                }
-            });
-        },
-        { threshold }
-    );
+export function initReveal({ threshold = 0.5, className = "visible" } = {}) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            const el = entry.target;
 
-    // Observe all existing .Reveal elements
+            if (entry.isIntersecting) {
+                // Show element
+                el.classList.remove("hiding");
+                el.classList.add(className);
+            } else if (el.classList.contains(className) && !el.classList.contains("hiding")) {
+                // Start hiding
+                el.classList.add("hiding");
+
+                // Remove classes after transition ends
+                const onTransitionEnd = (e) => {
+                    if (e.target === el) {
+                        el.classList.remove(className, "hiding");
+                        el.removeEventListener("transitionend", onTransitionEnd);
+                    }
+                };
+                el.addEventListener("transitionend", onTransitionEnd);
+            }
+        });
+    }, { threshold });
+
     document.querySelectorAll(".Reveal").forEach((el) => observer.observe(el));
 
-    // Watch for new nodes being added
     const mutationObserver = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
             mutation.addedNodes.forEach((node) => {
                 if (!(node instanceof HTMLElement)) return;
-
-                // If the node itself has .Reveal
-                if (node.classList.contains("Reveal")) {
-                    observer.observe(node);
-                }
-
-                // If it contains children with .Reveal
-                node.querySelectorAll?.(".Reveal").forEach((child) => {
-                    observer.observe(child);
-                });
+                if (node.classList.contains("Reveal")) observer.observe(node);
+                node.querySelectorAll?.(".Reveal").forEach((child) => observer.observe(child));
             });
         }
     });
 
-    mutationObserver.observe(document.body, {
-        childList: true,
-        subtree: true,
-    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
 }
