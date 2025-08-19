@@ -5,8 +5,6 @@
     "type": "module",
     "scripts": {
         "dev": "vite dev",
-        "start-backend": "node ./src/lib/server/presence.js",
-        "start-all": "concurrently \"npm run dev\" \"npm run start-backend\"",
         "build": "vite build",
         "preview": "vite preview",
         "prepare": "svelte-kit sync || echo ''"
