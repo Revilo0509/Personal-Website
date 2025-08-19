@@ -1,5 +1,5 @@
 <script>
-    const { href, text, newTab } = $props();
+    const { href, text, newTab, func } = $props();
 </script>
 
 <a
@@ -7,6 +7,7 @@
     class="Remove-Hyper Text-Animate Button"
     target={newTab ? "_blank" : undefined}
     rel={newTab ? "noopener noreferrer" : undefined}
+    onclick={func ? func : undefined}
 >
     <span>{text}</span>
 </a>

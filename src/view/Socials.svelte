@@ -1,4 +1,11 @@
 <script>
+    import { onMount } from "svelte";
+
+    import dnd from "$lib/icons/statusIcons/dnd.png";
+    import idle from "$lib/icons/statusIcons/idle.png";
+    import offline from "$lib/icons/statusIcons/offline.png";
+    import online from "$lib/icons/statusIcons/online.png";
+
     import discord from "$lib/icons/socialIcons/discord.svg";
     import github from "$lib/icons/socialIcons/github.svg";
     import reddit from "$lib/icons/socialIcons/reddit.svg";
@@ -30,14 +37,48 @@
             link: "https://www.twitch.tv/revilo0509",
         },
     ];
+
+    let statusIcon = $state(offline);
+
+    onMount(() => {
+        const socket = new WebSocket("ws://localhost:3000/presence");
+
+        socket.addEventListener("message", (event) => {
+            const data = JSON.parse(event.data);
+            switch (data.status) {
+                case "dnd":
+                    statusIcon = dnd;
+                    break;
+                case "idle":
+                    statusIcon = idle;
+                    break;
+                case "online":
+                    statusIcon = online;
+                    break;
+                default:
+                    statusIcon = offline;
+                    break;
+            }
+        });
+
+        return () => socket.close();
+    });
 </script>
 
 <section id="socials">
+    <h2 class="Reveal h2">My Socials</h2>
     <div class="Box Reveal links">
         {#each socials as social}
             <a href={social.link} target="_blank" rel="noopener noreferrer">
                 <div class="icon">
                     <img src={social.icon} alt={social.name} />
+                    {#if social.name == "Discord"}
+                        <img
+                            class="statusIcon"
+                            src={statusIcon}
+                            alt="status icon"
+                        />
+                    {/if}
                 </div>
             </a>
         {/each}
@@ -53,6 +94,11 @@
         padding: 1rem 0;
     }
 
+    .h2 {
+        position: absolute;
+        transform: translateY(-7rem);
+    }
+
     .links {
         background-color: var(--bg-col);
         display: flex;
@@ -61,6 +107,8 @@
     }
 
     .icon {
+        position: relative;
+
         width: 48px;
         height: 48px;
 
@@ -78,6 +126,33 @@
 
         &:hover {
             transform: scale(1.1);
+        }
+    }
+
+    .statusIcon {
+        position: absolute;
+
+        max-width: 24px;
+        max-height: 24px;
+        background-color: var(--bg-col);
+        padding: 6px;
+        border-radius: 50%;
+
+        right: 0;
+        left: auto;
+
+        bottom: 0;
+        top: auto;
+    }
+
+    @media (max-width: 768px) {
+        .links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .h2 {
+            transform: translateY(-16rem);
         }
     }
 </style>

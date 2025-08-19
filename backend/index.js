@@ -1,5 +1,5 @@
 import "dotenv/config";
-import WebSocket from "ws";
+import WebSocket, { WebSocketServer } from "ws";
 import express from "express";
 
 const app = express();
@@ -51,7 +51,6 @@ ws.on("message", (msg) => {
             if (t === "READY") {
                 sessionId = d.session_id;
                 console.log("Gateway READY");
-                // Request presence for the specific user in all guilds
                 if (d.guilds) {
                     d.guilds.forEach(guild => {
                         ws.send(JSON.stringify({
@@ -65,10 +64,17 @@ ws.on("message", (msg) => {
                     });
                 }
             }
-            // Presence updates
+
             if (t === "PRESENCE_UPDATE" && d.user && d.user.id === userId) {
                 presence = d;
                 console.log("Presence update for user:", presence.status);
+
+                // Broadcast to all connected clients
+                wss.clients.forEach(client => {
+                    if (client.readyState === WebSocket.OPEN) {
+                        client.send(JSON.stringify({ status: presence.status }));
+                    }
+                });
             }
             break;
         }
@@ -77,11 +83,20 @@ ws.on("message", (msg) => {
     }
 });
 
-// Express API endpoint for Svelte frontend
-app.get("/presence", (req, res) => {
-    // If presence or status is missing, default to "offline"
-    const status = presence && presence.status ? presence.status : "offline";
-    res.json({ status });
-});
+// Start Express server
+const server = app.listen(3000, () => console.log("Backend running on http://localhost:3000"));
 
-app.listen(3000, () => console.log("Backend running on http://localhost:3000"));
+// WebSocket server for /presence
+const wss = new WebSocketServer({ server, path: "/presence" });
+
+wss.on("connection", (socket) => {
+    console.log("Client connected to presence WS");
+
+    // Send initial presence immediately
+    const status = presence && presence.status ? presence.status : "offline";
+    socket.send(JSON.stringify({ status }));
+
+    socket.on("close", () => {
+        console.log("Client disconnected from presence WS");
+    });
+});

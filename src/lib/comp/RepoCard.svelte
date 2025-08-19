@@ -68,9 +68,4 @@
             opacity: 0.85;
         }
     }
-
-    a {
-        display: flex;
-        justify-content: center;
-    }
 </style>

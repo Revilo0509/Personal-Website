@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import { fetchRepos, filterRepos } from "$lib/github.js";
     import RepoCard from "$lib/comp/RepoCard.svelte";
+    import Button from "$lib/comp/Button.svelte";
 
     let repos = [];
     let error = null;
@@ -37,10 +38,8 @@
             </ul>
         </div>
         {#if visibleCount < repos.length}
-            <div class="loadMoreWrapper Text-Animate">
-                <button class="Button" on:click={loadMore}
-                    ><span>Load More</span></button
-                >
+            <div class="loadMoreWrapper">
+                <Button text="Load More" func={loadMore} />
             </div>
         {/if}
     {/if}
@@ -75,7 +74,7 @@
             minmax(calc(250px + 2.5rem), 1fr)
         );
         max-width: 1200px;
-        width: calc(100% - 4rem);
+        width: 100%;
         justify-items: center;
         align-items: center;
         min-width: 300px;
@@ -85,17 +84,5 @@
         display: flex;
         justify-content: center;
         margin-bottom: 2rem;
-    }
-
-    .loadMore {
-        padding: 0.5rem;
-        border-radius: var(--corner-radius);
-        background-color: var(--hl-col);
-        text-align: center;
-
-        transition: 300ms ease;
-        &:hover {
-            background-color: var(--secondary-col);
-        }
     }
 </style>
