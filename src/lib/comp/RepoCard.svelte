@@ -22,7 +22,7 @@
         </div>
 
         <a href={repo.html_url} class="Remove-Hyper Text-Animate repoLink">
-            <span>Goto Repo</span>
+            <span>Go to Repo</span>
         </a>
     </div>
 </div>
