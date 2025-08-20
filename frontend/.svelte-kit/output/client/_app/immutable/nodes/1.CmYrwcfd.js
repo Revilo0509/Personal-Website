@@ -1,1 +1,0 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/D96X6gbP.js";import{O as a,T as t,$ as e}from"../chunks/BWs6O1t_.js";var m=a('<h1>IDK BRO</h1> <p>You got an error bruv</p> <a href="/">Go back home</a>',1);function h(r){var o=m();e(4),t(r,o)}export{h as component};
