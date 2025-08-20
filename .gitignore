@@ -19,8 +19,9 @@ backend/.env
 !.env.example
 !.env.test
 
-frontend/build
-frontend/.svelte-kit
+./frontend/build
+./frontend/.svelte-kit
+
 
 # Vite
 vite.config.js.timestamp-*
