@@ -32,11 +32,9 @@
 
   .Box {
     margin: 6rem;
-    
     min-width: 280px;
     max-width: 400px;
     padding: 2rem;
-
   }
 
   .Buttons {
